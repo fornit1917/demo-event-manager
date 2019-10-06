@@ -13,9 +13,11 @@ namespace EventManager.ApiApp.Controllers
     [ApiController]
     public class EventsController : ControllerBase {
         private IEventsService _eventsService;
+        private IGuestsService _guestsService;
 
-        public EventsController(IEventsService eventsService) {
+        public EventsController(IEventsService eventsService, IGuestsService guestsService) {
             _eventsService = eventsService;
+            _guestsService = guestsService;
         }
 
         [HttpGet]
@@ -31,6 +33,11 @@ namespace EventManager.ApiApp.Controllers
         [HttpPut("{eventId}/archive")]
         public async Task SetArchive(int eventId) {
             await _eventsService.SetArchive(eventId);
+        }
+
+        [HttpGet("{eventId}/guests")]
+        public Task<Guest[]> GetGuests(int eventId) {
+            return _guestsService.GetGuests(eventId);
         }
     }
 }
