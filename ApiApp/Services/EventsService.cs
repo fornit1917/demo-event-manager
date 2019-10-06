@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventManager.ApiApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.ApiApp.Services {
     public class EventsService : IEventsService {
+        private AppDbContext _db;
+
+        public EventsService(AppDbContext db) {
+            _db = db;
+        }
+
         public Task<Event[]> GetEvents() {
-            Event[] events = new[] {
-                new Event { Id = 1, Name = "Event 1", Place = "Place 1", Type = EventType.Conference, MaxGuests = 10 },
-                new Event { Id = 2, Name = "Event 2", Place = "Place 2", Type = EventType.Conference, MaxGuests = 10 },
-                new Event { Id = 3, Name = "Event 3", Place = "Place 3", Type = EventType.Conference, MaxGuests = 10 },
-            };
-            return Task.FromResult(events);
+            return _db.Events.Where(ev => ev.IsArchived == false).ToArrayAsync();
         }
 
         public Task SetArchive(int eventId) {

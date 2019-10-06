@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventManager.ApiApp.Models {
-    public enum EventType {
+    public enum EventType : byte {
         Conference,
         Seminar,
         Hackaton

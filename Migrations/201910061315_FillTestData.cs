@@ -11,8 +11,8 @@ namespace EventManager.Migrations {
                 DECLARE @i int = 1
                 WHILE @i <= 20
                 BEGIN
-	                INSERT INTO [Event] ([Name], [Place], [MaxGuests], [Type])
-                    VALUES (CONCAT('Event ', @i), CONCAT('Place ', @i), 10, @i % 3);
+	                INSERT INTO [Event] ([Name], [Place], [MaxGuests], [EventDate], [Type])
+                    VALUES (CONCAT('Event ', @i), CONCAT('Place ', @i), 10, '2019-10-10', @i % 3);
 
 	                DECLARE @eventId int = SCOPE_IDENTITY();
 

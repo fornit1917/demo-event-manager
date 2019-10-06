@@ -12,7 +12,8 @@ namespace EventManager.Migrations {
 	                [Id] [int] NOT NULL IDENTITY(1,1),
 	                [Name] [nvarchar](500) NOT NULL,
 	                [Place] [nvarchar](500) NOT NULL,
-	                [Type] [smallint] NOT NULL,
+                    [EventDate] [date] NOT NULL,
+	                [Type] [TINYINT] NOT NULL,
 	                [MaxGuests] [int] NOT NULL,
 	                [IsArchived] [bit] NOT NULL DEFAULT 0,
 	                CONSTRAINT [PK_Event] PRIMARY KEY CLUSTERED ([Id] ASC)
