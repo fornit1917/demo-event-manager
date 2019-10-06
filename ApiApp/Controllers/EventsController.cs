@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EventManager.ApiApp.Models;
@@ -38,6 +39,16 @@ namespace EventManager.ApiApp.Controllers
         [HttpGet("{eventId}/guests")]
         public Task<Guest[]> GetGuests(int eventId) {
             return _guestsService.GetGuests(eventId);
+        }
+
+        [HttpGet("{eventId}/guests-csv")]
+        public async Task ExportGuests(int eventId) {
+            Response.StatusCode = 200;
+            Response.ContentType = "text/csv";
+            Response.Headers.Add("Content-Disposition", "Attachment;filename=Guests.csv");
+            using (var sw = new StreamWriter(Response.Body)) {
+                await _guestsService.ExportToStream(eventId, sw);
+            }
         }
     }
 }
