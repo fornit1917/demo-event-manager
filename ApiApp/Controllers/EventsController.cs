@@ -23,6 +23,11 @@ namespace EventManager.ApiApp.Controllers
             return await _eventsService.GetEvents();
         }
 
+        [HttpPost]
+        public async Task<Event> CreateEvent(Event ev) {
+            return await _eventsService.CreateEvent(ev);
+        }
+
         [HttpPut("{eventId}/archive")]
         public async Task SetArchive(int eventId) {
             await _eventsService.SetArchive(eventId);

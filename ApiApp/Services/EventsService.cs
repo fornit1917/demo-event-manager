@@ -17,6 +17,13 @@ namespace EventManager.ApiApp.Services {
             return _db.Events.Where(x => x.IsArchived == false).ToArrayAsync();
         }
 
+        public async Task<Event> CreateEvent(Event ev) {
+            //todo: validation
+            _db.Events.Add(ev);
+            await _db.SaveChangesAsync();
+            return ev;
+        }
+
         public async Task SetArchive(int eventId) {
             Event ev = await _db.Events.FindAsync(eventId);
             //todo: throw exception if not found

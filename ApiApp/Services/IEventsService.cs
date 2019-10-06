@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace EventManager.ApiApp.Services {
     public interface IEventsService {
         Task<Event[]> GetEvents();
+        Task<Event> CreateEvent(Event ev);
         Task SetArchive(int eventId);
     }
 }
