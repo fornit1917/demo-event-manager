@@ -1,0 +1,9 @@
+.vs
+.vscode
+packages
+TestResults
+[Oo]bj/
+[Bb]in/
+*.user
+node_modules
+dist
