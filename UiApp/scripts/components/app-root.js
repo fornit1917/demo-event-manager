@@ -9,11 +9,13 @@ import PageEventsList from "./page-events-list";
 export default class AppRoot extends React.Component {
     render() {
         return (
-            <HashRouter>
-                <Route exact path="/" component={PageEventsList} />
-                <Route exact path="/events/create" component={PageCreateEvent} />
-                <Route exact path="/events/:eventId(\d+)" component={PageEvent} />
-            </HashRouter>
+            <div className="app-content">
+                <HashRouter>
+                    <Route exact path="/" component={PageEventsList} />
+                    <Route exact path="/events/create" component={PageCreateEvent} />
+                    <Route exact path="/events/:eventId(\d+)" component={PageEvent} />
+                </HashRouter>
+            </div>    
         )
     }
 }
