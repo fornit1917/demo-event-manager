@@ -31,5 +31,9 @@ namespace EventManager.ApiApp.Services {
             ev.IsArchived = true;
             await _db.SaveChangesAsync();
         }
+
+        public Task<Event> GetEvent(int eventId) {
+            return _db.Events.FindAsync(eventId);
+        }
     }
 }

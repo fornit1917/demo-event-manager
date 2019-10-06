@@ -26,6 +26,11 @@ namespace EventManager.ApiApp.Controllers
             return await _eventsService.GetEvents();
         }
 
+        [HttpGet("{eventId}")]
+        public async Task<Event> GetEvent(int eventId) {
+            return await _eventsService.GetEvent(eventId);
+        }
+
         [HttpPost]
         public async Task<Event> CreateEvent(Event ev) {
             return await _eventsService.CreateEvent(ev);

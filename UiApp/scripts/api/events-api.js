@@ -17,3 +17,11 @@ export function markEventAsArchive(eventId) {
         method: "PUT"
     });
 }
+
+export function getEvent(eventId) {
+    return fetch(`/api/events/${eventId}`).then(response => response.json());
+}
+
+export function getGuests(eventId) {
+    return fetch(`/api/events/${eventId}/guests`).then(response => response.json());
+}
