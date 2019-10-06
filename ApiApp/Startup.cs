@@ -30,6 +30,7 @@ namespace EventManager.ApiApp {
             });
 
             services.AddScoped<IEventsService, EventsService>();
+            services.AddScoped<IGuestsService, GuestsService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddFluentMigratorCore()
