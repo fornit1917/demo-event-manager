@@ -19,6 +19,7 @@ namespace EventManager.ApiApp.Services {
 
         public async Task<Event> CreateEvent(Event ev) {
             //todo: validation
+            ev.IsArchived = false;
             _db.Events.Add(ev);
             await _db.SaveChangesAsync();
             return ev;
