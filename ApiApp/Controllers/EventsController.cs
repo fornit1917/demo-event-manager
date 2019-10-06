@@ -23,9 +23,9 @@ namespace EventManager.ApiApp.Controllers
             return await _eventsService.GetEvents();
         }
 
-        [HttpPut("{id}/archive")]
-        public async Task SetArchive(int id) {
-            await _eventsService.SetArchive(id);
+        [HttpPut("{eventId}/archive")]
+        public async Task SetArchive(int eventId) {
+            await _eventsService.SetArchive(eventId);
         }
     }
 }

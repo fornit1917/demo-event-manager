@@ -14,11 +14,14 @@ namespace EventManager.ApiApp.Services {
         }
 
         public Task<Event[]> GetEvents() {
-            return _db.Events.Where(ev => ev.IsArchived == false).ToArrayAsync();
+            return _db.Events.Where(x => x.IsArchived == false).ToArrayAsync();
         }
 
-        public Task SetArchive(int eventId) {
-            return Task.CompletedTask;
+        public async Task SetArchive(int eventId) {
+            Event ev = await _db.Events.FindAsync(eventId);
+            //todo: throw exception if not found
+            ev.IsArchived = true;
+            await _db.SaveChangesAsync();
         }
     }
 }
