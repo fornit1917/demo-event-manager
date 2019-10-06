@@ -49,6 +49,12 @@ export default class PageEvent extends React.Component {
         return this.props.match.params.eventId;
     }
 
+    getRemainingSpaces() {
+        const event = this.state.event;
+        const count = event ? event.maxGuests - event.invitedGuestsCount : 0;
+        return count > 0 ? count : 0;
+    }
+
     renderEventDetails() {
         if (!this.state.event) {
             return <p>Event data is not available</p>
@@ -60,6 +66,7 @@ export default class PageEvent extends React.Component {
                 <li>Event name: <b>{name}</b></li>
                 <li>Type: <b>{type}</b></li>
                 <li>Date: <b>{eventDate}</b></li>
+                <li>Remaining spaces: <b>{this.getRemainingSpaces()}</b></li>
             </ul>
         )
     }

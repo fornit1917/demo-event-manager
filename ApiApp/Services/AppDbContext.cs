@@ -14,8 +14,12 @@ namespace EventManager.ApiApp.Services {
         }
 
         protected override void OnModelCreating(ModelBuilder builder) {
-            builder.Entity<Event>(x => x.ToTable("Event"));
-            builder.Entity<Guest>(x => x.ToTable("Guest"));
+            builder.Entity<Event>()
+                .ToTable("Event")
+                .Ignore(x => x.InvitedGuestsCount);
+
+            builder.Entity<Guest>().ToTable("Guest");
+            
         }
     }
 }

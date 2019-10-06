@@ -17,5 +17,8 @@ namespace EventManager.ApiApp.Models {
         
         public int MaxGuests { get; set; }
         public bool IsArchived { get; set; }
+
+        public ICollection<Guest> Guests { get; set; }
+        public int InvitedGuestsCount { get; set; }
     }
 }

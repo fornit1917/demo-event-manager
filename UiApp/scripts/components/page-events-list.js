@@ -29,6 +29,11 @@ export default class PageEventList extends React.Component {
                 key: "maxGuests",
             },
             {
+                title: "Invited guests",
+                dataIndex: "invitedGuestsCount",
+                key: "invitedGuestsCount",
+            },
+            {
                 title: "Date",
                 dataIndex: "eventDate",
                 key: "eventDate",

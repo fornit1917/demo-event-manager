@@ -12,7 +12,7 @@ namespace EventManager.Migrations {
                 WHILE @i <= 20
                 BEGIN
 	                INSERT INTO [Event] ([Name], [Place], [MaxGuests], [EventDate], [Type])
-                    VALUES (CONCAT('Event ', @i), CONCAT('Place ', @i), 10, '2019-10-10', @i % 3);
+                    VALUES (CONCAT('Event ', @i), CONCAT('Place ', @i), 30, '2019-10-10', @i % 3);
 
 	                DECLARE @eventId int = SCOPE_IDENTITY();
 

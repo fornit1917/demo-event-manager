@@ -14,7 +14,20 @@ namespace EventManager.ApiApp.Services {
         }
 
         public Task<Event[]> GetEvents() {
-            return _db.Events.Where(x => x.IsArchived == false).ToArrayAsync();
+            return _db.Events
+                .Where(x => x.IsArchived == false)
+                .Select(x => new Event {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Place = x.Place,
+                    Type = x.Type,
+                    EventDate = x.EventDate,
+                    MaxGuests = x.MaxGuests,
+                    IsArchived = x.IsArchived,
+                    InvitedGuestsCount = x.Guests.Count,
+                })
+                .AsNoTracking()
+                .ToArrayAsync();
         }
 
         public async Task<Event> CreateEvent(Event ev) {
@@ -33,7 +46,18 @@ namespace EventManager.ApiApp.Services {
         }
 
         public Task<Event> GetEvent(int eventId) {
-            return _db.Events.FindAsync(eventId);
+            return _db.Events
+                .Where(x => x.Id == eventId)
+                .Select(x => new Event {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Place = x.Place,
+                    Type = x.Type,
+                    EventDate = x.EventDate,
+                    MaxGuests = x.MaxGuests,
+                    IsArchived = x.IsArchived,
+                    InvitedGuestsCount = x.Guests.Count,
+                }).FirstOrDefaultAsync();
         }
     }
 }
