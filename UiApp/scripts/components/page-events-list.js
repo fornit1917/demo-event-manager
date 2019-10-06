@@ -1,43 +1,59 @@
 import React from "react";
-import { Table, Button } from "antd";
+import { Table, Button, message } from "antd";
 import Spinner from "./spinner";
-import { getEvents } from "../api/events-api";
-
-const columns = [
-    {
-        title: "Event",
-        dataIndex: "name",
-        key: "name",
-    },
-    {
-        title: "Place",
-        dataIndex: "place",
-        key: "place",
-    },
-    {
-        title: "Type",
-        dataIndex: "type",
-        key: "type",
-    },
-    {
-        title: "Max guests",
-        dataIndex: "maxGuests",
-        key: "maxGuests",
-    },
-    {
-        title: "Date",
-        dataIndex: "eventDate",
-        key: "eventDate",
-    }
-];
+import { getEvents, markEventAsArchive } from "../api/events-api";
 
 export default class PageEventList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.columns = [
+            {
+                title: "Event",
+                dataIndex: "name",
+                key: "name",
+            },
+            {
+                title: "Place",
+                dataIndex: "place",
+                key: "place",
+            },
+            {
+                title: "Type",
+                dataIndex: "type",
+                key: "type",
+            },
+            {
+                title: "Max guests",
+                dataIndex: "maxGuests",
+                key: "maxGuests",
+            },
+            {
+                title: "Date",
+                dataIndex: "eventDate",
+                key: "eventDate",
+            },
+            {
+                title: "Action",
+                key: "action",
+                render: row => {
+                    return (
+                        <span>
+                            <a href={`#/events/${row.id}`}>Manage guests</a>
+                            <div className="ant-divider ant-divider-vertical" role="separator"></div>
+                            <a href="#" onClick={this.handleArchiveClick} data-id={row.id}>Archive</a>
+                        </span>    
+                    );
+                }
+            },
+        ];
+
         this.state = {
             isLoading: false,
             events: [],
         }
+
+        this.isPending = false;
     }
 
     componentDidMount() {
@@ -49,6 +65,27 @@ export default class PageEventList extends React.Component {
             .catch(() => {
                 this.setState({ isLoading: false, events: [] })
             });
+    }
+
+    handleArchiveClick = e => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (this.isPending) {
+            return;
+        }
+
+        if (confirm("Are you shure that you want to archive event?")) {
+            this.isPending = true;
+            markEventAsArchive(e.currentTarget.dataset.id)
+                .then(() => {
+                    return getEvents();
+                })
+                .then(events => {
+                    this.isPending = false;
+                    message.success("Event has been archived successfully");
+                    this.setState({ events })
+                });
+        }
     }
 
     render() {
@@ -64,7 +101,7 @@ export default class PageEventList extends React.Component {
                     <Button type="primary" icon="plus" href="#/events/create">Add event</Button>
                 </div>    
                 <div className="events-list__table">
-                    <Table columns={columns} dataSource={events} rowKey="id"/>
+                    <Table columns={this.columns} dataSource={events} rowKey="id"/>
                 </div>    
             </div>
         );

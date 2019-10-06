@@ -11,3 +11,9 @@ export function createEvent(data) {
         body: JSON.stringify(data),
     }).then(response => response.json());
 }
+
+export function markEventAsArchive(eventId) {
+    return fetch(`/api/events/${eventId}/archive`, {
+        method: "PUT"
+    });
+}
