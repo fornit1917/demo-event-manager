@@ -9,5 +9,6 @@ namespace EventManager.ApiApp.Services {
     public interface IGuestsService {
         Task<Guest[]> GetGuests(int eventId);
         Task ExportToStream(int eventId, StreamWriter sw);
+        Task<GuestsImportResult> Import(int eventId, Stream stream);
     }
 }

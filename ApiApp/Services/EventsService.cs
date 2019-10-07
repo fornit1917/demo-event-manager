@@ -26,9 +26,11 @@ namespace EventManager.ApiApp.Services {
         }
 
         public Task<Event[]> GetEvents() {
+            //todo: add pagination
             return _db.Events
                 .Where(x => x.IsArchived == false)
                 .Select(Projection)
+                .OrderByDescending(x => x.Id)
                 .AsNoTracking()
                 .ToArrayAsync();
         }

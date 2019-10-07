@@ -25,3 +25,12 @@ export function getEvent(eventId) {
 export function getGuests(eventId) {
     return fetch(`/api/events/${eventId}/guests`).then(response => response.json());
 }
+
+export function uploadGuestsList(eventId, file) {
+    const data = new FormData();
+    data.append('file', file);
+    return fetch(`/api/events/${eventId}/guests-csv`, {
+        method: 'PUT',
+        body: data,
+    }).then(response => response.json());
+}

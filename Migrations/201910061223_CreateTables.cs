@@ -27,7 +27,7 @@ namespace EventManager.Migrations {
 	                [Id] [int] NOT NULL IDENTITY(1,1),
 	                [Email] [nvarchar](100) NOT NULL,
 	                [Name] [nvarchar](200) NOT NULL,
-	                [Comment] [nvarchar](500) NOT NULL,
+	                [Comment] [nvarchar](500),
 	                [EventId] [int] NOT NULL,
 
 	                CONSTRAINT [PK_Guest] PRIMARY KEY CLUSTERED ([Id] ASC),
